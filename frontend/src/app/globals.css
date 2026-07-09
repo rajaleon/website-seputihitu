@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply font-sans text-gray-800 bg-gray-50; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white font-semibold
+           px-4 py-2.5 rounded-xl transition-colors duration-200 disabled:opacity-50
+           disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-primary-400;
+  }
+  .btn-outline {
+    @apply border-2 border-primary-500 text-primary-600 hover:bg-primary-50 font-semibold
+           px-4 py-2.5 rounded-xl transition-colors duration-200 disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply text-gray-600 hover:text-primary-600 hover:bg-gray-100 font-medium
+           px-3 py-2 rounded-lg transition-colors duration-200;
+  }
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none
+           focus:ring-2 focus:ring-primary-400 focus:border-transparent
+           bg-white text-gray-800 placeholder-gray-400 transition;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden;
+  }
+  .badge-discount {
+    @apply bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full;
+  }
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+}
