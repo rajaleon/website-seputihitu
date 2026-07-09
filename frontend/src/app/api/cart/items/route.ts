@@ -37,11 +37,18 @@ export async function POST(req: NextRequest) {
   const cartId = carts[0].id;
 
   // Check existing
-  const existing = await query(
-    `SELECT id, qty FROM cart_items WHERE cart_id = ? AND product_id = ? AND 
-     (variant_id = ? OR (variant_id IS NULL AND ? IS NULL))`,
-    [cartId, product_id, variant_id || null, variant_id || null]
-  );
+  let existing;
+  if (variant_id) {
+    existing = await query(
+      'SELECT id, qty FROM cart_items WHERE cart_id = ? AND product_id = ? AND variant_id = ?',
+      [cartId, product_id, variant_id]
+    );
+  } else {
+    existing = await query(
+      'SELECT id, qty FROM cart_items WHERE cart_id = ? AND product_id = ? AND variant_id IS NULL',
+      [cartId, product_id]
+    );
+  }
 
   if (existing.length > 0) {
     const newQty = existing[0].qty + qty;
