@@ -55,7 +55,7 @@ function CheckoutContent() {
   }, [user, router, fetchCart]);
 
   useEffect(() => {
-    if (!selectedAddr || selectedItems.length === 0) return;
+    if (!selectedAddr) return;
     const addr = addresses.find(a => a.id === selectedAddr);
     if (!addr) return;
     setLoadingRates(true);
@@ -64,9 +64,9 @@ function CheckoutContent() {
     api.post('/shipping/estimate', {
       destination_postal_code: addr.postal_code,
       destination_city_name:   addr.city,
-      items: selectedItems.map(i => ({
-        name: i.name, value: Number(i.price_snapshot), weight: 500, qty: i.qty,
-      })),
+      items: selectedItems.length > 0
+        ? selectedItems.map(i => ({ name: i.name, value: Number(i.price_snapshot), weight: 500, qty: i.qty }))
+        : [{ name: 'Product', value: 50000, weight: 500, qty: 1 }],
     }).then(r => setCouriers(r.data.data || []))
       .catch(() => toast.error('Gagal mengambil data ongkir'))
       .finally(() => setLoadingRates(false));

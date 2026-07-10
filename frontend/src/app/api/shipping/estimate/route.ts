@@ -44,6 +44,12 @@ export async function POST(req: NextRequest) {
       }),
     });
     const data = await res.json();
+    
+    if (!res.ok) {
+      console.error('[BiteShip rates error]', res.status, data);
+      return Response.json({ success: false, message: 'BiteShip error', detail: data }, { status: 502 });
+    }
+    
     const couriers = data.pricing?.map((p: any) => ({
       courier_code: p.courier_code, courier_name: p.courier_name,
       service_code: p.service_code || p.courier_service_code,
