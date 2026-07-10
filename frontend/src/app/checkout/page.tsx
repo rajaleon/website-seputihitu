@@ -101,27 +101,8 @@ function CheckoutContent() {
         notes,
         idempotency_key: `${user!.id}-${Date.now()}`,
       });
-      // Get Snap token
-      const payRes = await api.post('/payment/token', { order_id: data.order_id });
-      const { snap_token, client_key } = payRes.data;
-      if (typeof window !== 'undefined') {
-        const isProduction = process.env.NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION === 'true';
-        const snapUrl = isProduction
-          ? 'https://app.midtrans.com/snap/snap.js'
-          : 'https://app.sandbox.midtrans.com/snap/snap.js';
-        const script = document.createElement('script');
-        script.src   = snapUrl;
-        script.setAttribute('data-client-key', client_key);
-        script.onload = () => {
-          (window as any).snap.pay(snap_token, {
-            onSuccess: () => router.push(`/thank-you/${data.order_number}`),
-            onPending: () => router.push(`/thank-you/${data.order_number}?status=pending`),
-            onError:   () => toast.error('Pembayaran gagal'),
-            onClose:   () => toast('Pembayaran dibatalkan'),
-          });
-        };
-        document.head.appendChild(script);
-      }
+      // Redirect ke halaman payment
+      router.push(`/payment/${data.order_number}`);
     } catch (err: any) {
       toast.error(err?.response?.data?.message || 'Gagal membuat pesanan');
     } finally {
