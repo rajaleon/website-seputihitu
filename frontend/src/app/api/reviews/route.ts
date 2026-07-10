@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
 import { execute, query } from '@/lib/server/db';
 import { requireAuth } from '@/lib/server/auth';
 
@@ -15,7 +14,7 @@ export async function POST(req: NextRequest) {
   try {
     await execute(
       'INSERT INTO product_reviews (id, product_id, user_id, rating, comment) VALUES (?,?,?,?,?)',
-      [uuidv4(), product_id, user.id, rating, comment || null]
+      [crypto.randomUUID(), product_id, user.id, rating, comment || null]
     );
     // Update avg
     const avg = await query('SELECT AVG(rating) as avg FROM product_reviews WHERE product_id = ?', [product_id]);

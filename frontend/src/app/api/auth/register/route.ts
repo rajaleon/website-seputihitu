@@ -1,6 +1,5 @@
 import { NextRequest } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { v4 as uuidv4 } from 'uuid';
 import { query, execute } from '@/lib/server/db';
 import { signToken } from '@/lib/server/auth';
 
@@ -20,8 +19,8 @@ export async function POST(req: NextRequest) {
     }
 
     const hashed = await bcrypt.hash(password, 12);
-    const userId = uuidv4();
-    const cartId = uuidv4();
+    const userId = crypto.randomUUID();
+    const cartId = crypto.randomUUID();
 
     await execute(
       'INSERT INTO users (id, name, email, password, phone) VALUES (?, ?, ?, ?, ?)',

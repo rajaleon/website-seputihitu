@@ -9,8 +9,7 @@ export async function GET(req: NextRequest) {
   // Get or create cart
   let carts = await query('SELECT id FROM carts WHERE user_id = ?', [user.id]);
   if (carts.length === 0) {
-    const { v4: uuidv4 } = await import('uuid');
-    const cartId = uuidv4();
+    const cartId = crypto.randomUUID();
     await (await import('@/lib/server/db')).execute('INSERT INTO carts (id, user_id) VALUES (?,?)', [cartId, user.id]);
     carts = [{ id: cartId }];
   }

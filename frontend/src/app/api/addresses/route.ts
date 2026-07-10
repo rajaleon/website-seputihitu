@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
 import { query, execute } from '@/lib/server/db';
 import { requireAuth } from '@/lib/server/auth';
 
@@ -22,7 +21,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ success: false, message: 'Semua field alamat wajib diisi' }, { status: 400 });
   }
 
-  const id = uuidv4();
+  const id = crypto.randomUUID();
   if (is_primary) {
     await execute('UPDATE addresses SET is_primary = false WHERE user_id = ?', [user.id]);
   }

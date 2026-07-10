@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
 import { query, transaction } from '@/lib/server/db';
 import { requireAuth } from '@/lib/server/auth';
 
@@ -81,9 +80,9 @@ export async function POST(req: NextRequest) {
   }
 
   const total = subtotal - discount + Number(shipping_cost || 0);
-  const orderId     = uuidv4();
+  const orderId     = crypto.randomUUID();
   const orderNumber = generateOrderNumber();
-  const paymentId   = uuidv4();
+  const paymentId   = crypto.randomUUID();
   const expiredAt   = new Date(Date.now() + 24 * 3600 * 1000).toISOString();
 
   await transaction(async (tx) => {
@@ -97,7 +96,7 @@ export async function POST(req: NextRequest) {
     for (const item of items) {
       await tx.execute(
         'INSERT INTO order_items (id, order_id, product_id, variant_id, qty, price) VALUES (?,?,?,?,?,?)',
-        [uuidv4(), orderId, item.product_id, item.variant_id || null, item.qty, item.price_snapshot]
+        [crypto.randomUUID(), orderId, item.product_id, item.variant_id || null, item.qty, item.price_snapshot]
       );
       if (item.variant_id) {
         await tx.execute('UPDATE product_variants SET stock = stock - ? WHERE id = ?', [item.qty, item.variant_id]);

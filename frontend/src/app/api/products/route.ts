@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
 import { query, execute } from '@/lib/server/db';
 import { requireAdmin } from '@/lib/server/auth';
 
@@ -77,7 +76,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ success: false, message: 'SKU, nama, slug, dan harga wajib diisi' }, { status: 400 });
   }
 
-  const id = uuidv4();
+  const id = crypto.randomUUID();
   await execute(
     `INSERT INTO products (id, sku, name, slug, description, specification, price, discount_price, stock,
       category_id, thumbnail_url, weight_gram, length_cm, width_cm, height_cm, is_featured, is_flash_sale, flash_sale_end)
