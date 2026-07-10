@@ -1,7 +1,10 @@
 import { NextRequest } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
 import { query, execute } from '@/lib/server/db';
 import { requireAuth } from '@/lib/server/auth';
+
+function generateId() {
+  return crypto.randomUUID();
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,7 +34,7 @@ export async function POST(req: NextRequest) {
     // Get or create cart
     let carts = await query('SELECT id FROM carts WHERE user_id = ?', [user.id]);
     if (carts.length === 0) {
-      const cartId = uuidv4();
+      const cartId = generateId();
       await execute('INSERT INTO carts (id, user_id) VALUES (?,?)', [cartId, user.id]);
       carts = [{ id: cartId }];
     }
@@ -60,7 +63,7 @@ export async function POST(req: NextRequest) {
     } else {
       await execute(
         'INSERT INTO cart_items (id, cart_id, product_id, variant_id, qty, price_snapshot) VALUES (?,?,?,?,?,?)',
-        [uuidv4(), cartId, product_id, variant_id || null, qty, priceSnapshot]
+        [generateId(), cartId, product_id, variant_id || null, qty, priceSnapshot]
       );
     }
 
