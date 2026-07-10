@@ -78,10 +78,13 @@ export default function PaymentPage() {
 
   async function createShipment() {
     try {
-      await api.post('/shipping/create', { order_id: order?.id });
-    } catch {
-      // Non-blocking — shipment bisa dibuat manual nanti dari admin
-      console.log('Shipment creation skipped (demo or API error)');
+      // Confirm payment → update status di DB + create shipment di BiteShip
+      await api.post('/payment/confirm', { 
+        order_id: order?.id,
+        payment_method: selectedMethod 
+      });
+    } catch (err: any) {
+      console.log('Payment confirm error (non-blocking):', err.message);
     }
     setPaymentDone(true);
     setProcessing(false);
