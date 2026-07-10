@@ -71,10 +71,21 @@ export default function PaymentPage() {
 
   useEffect(() => {
     if (countdown === 0 && processing) {
-      setPaymentDone(true);
-      setProcessing(false);
+      // Payment berhasil — buat shipment di BiteShip
+      createShipment();
     }
   }, [countdown, processing]);
+
+  async function createShipment() {
+    try {
+      await api.post('/shipping/create', { order_id: order?.id });
+    } catch {
+      // Non-blocking — shipment bisa dibuat manual nanti dari admin
+      console.log('Shipment creation skipped (demo or API error)');
+    }
+    setPaymentDone(true);
+    setProcessing(false);
+  }
 
   async function handlePay() {
     if (!selectedMethod) { toast.error('Pilih metode pembayaran'); return; }
