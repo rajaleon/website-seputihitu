@@ -63,22 +63,24 @@ export default function Navbar() {
           <div className="flex items-center gap-1 ml-auto">
             {user ? (
               <>
-                <Link href="/orders" className="btn-ghost p-2.5 hidden sm:flex">
-                  <Package size={20} />
+                <Link href="/orders" className="btn-ghost p-2.5 hidden sm:flex items-center gap-1.5" title="Pesanan">
+                  <Package size={18} />
+                  <span className="text-xs font-medium hidden lg:block">Pesanan</span>
                 </Link>
-                <Link href="/cart" className="btn-ghost p-2.5 relative">
-                  <ShoppingCart size={20} />
+                <Link href="/cart" className="btn-ghost p-2.5 relative flex items-center gap-1.5" title="Keranjang">
+                  <ShoppingCart size={18} />
+                  <span className="text-xs font-medium hidden lg:block">Keranjang</span>
                   {totalItems() > 0 && (
                     <span className="absolute -top-0.5 -right-0.5 bg-primary-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
                       {totalItems() > 9 ? '9+' : totalItems()}
                     </span>
-                  )}
+                  )}}
                 </Link>
                 {/* User menu */}
                 <div className="relative">
-                  <button onClick={() => setUserMenu(!userMenu)} className="btn-ghost p-2.5 flex items-center gap-2">
-                    <User size={20} />
-                    <span className="hidden md:block text-sm font-medium">{user.name.split(' ')[0]}</span>
+                  <button onClick={() => setUserMenu(!userMenu)} className="btn-ghost p-2.5 flex items-center gap-1.5" title="Akun">
+                    <User size={18} />
+                    <span className="text-xs font-medium hidden md:block">{user.name.split(' ')[0]}</span>
                   </button>
                   {userMenu && (
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
