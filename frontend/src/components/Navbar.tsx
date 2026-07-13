@@ -74,7 +74,7 @@ export default function Navbar() {
                     <span className="absolute -top-0.5 -right-0.5 bg-primary-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
                       {totalItems() > 9 ? '9+' : totalItems()}
                     </span>
-                  )}}
+                  )}
                 </Link>
                 {/* User menu */}
                 <div className="relative">
