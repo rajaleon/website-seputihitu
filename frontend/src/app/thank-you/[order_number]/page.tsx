@@ -8,6 +8,7 @@ import { CheckCircle, Clock, Package, Truck, ArrowRight, Share2 } from 'lucide-r
 import api from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import { formatRupiah, formatDate } from '@/lib/utils';
+import toast from 'react-hot-toast';
 
 interface OrderItem { name: string; qty: number; price: number; variant_name?: string; thumbnail_url?: string; }
 interface Order {
@@ -43,6 +44,7 @@ function ThankYouContent() {
   const { user }         = useAuthStore();
   const [order,   setOrder]   = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
+  const [confirming, setConfirming] = useState(false);
 
   const isPending = searchParams.get('status') === 'pending';
 
@@ -53,6 +55,23 @@ function ThankYouContent() {
       .catch(() => router.push('/orders'))
       .finally(() => setLoading(false));
   }, [user, order_number, router]);
+
+  async function handleConfirmReceived() {
+    if (!order) return;
+    const confirmed = window.confirm('Konfirmasi pesanan sudah diterima? Status akan berubah menjadi "Selesai".');
+    if (!confirmed) return;
+
+    setConfirming(true);
+    try {
+      await api.post(`/orders/${order_number}/confirm`);
+      toast.success('Pesanan berhasil dikonfirmasi!');
+      setOrder({ ...order, status: 'delivered' });
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || 'Gagal mengkonfirmasi pesanan');
+    } finally {
+      setConfirming(false);
+    }
+  }
 
   if (loading) return (
     <div className="max-w-2xl mx-auto px-4 py-12 text-center">
@@ -212,6 +231,45 @@ function ThankYouContent() {
       )}
 
       {/* ── Actions ───────────────────────────────── */}
+      {/* Tombol Konfirmasi Pesanan Diterima — muncul saat status shipped/processing */}
+      {['shipped', 'processing', 'paid'].includes(order.status) && (
+        <div className="card p-5 mb-5 border-2 border-primary-100 bg-primary-50/30">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Package size={22} className="text-primary-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-gray-900 mb-1">Pesanan Sudah Sampai?</h3>
+              <p className="text-sm text-gray-500 mb-4">
+                Konfirmasi bahwa kamu sudah menerima pesanan ini. Setelah dikonfirmasi, status akan berubah menjadi "Selesai".
+              </p>
+              <button
+                onClick={handleConfirmReceived}
+                disabled={confirming}
+                className="btn-primary flex items-center gap-2 text-sm">
+                <CheckCircle size={16} />
+                {confirming ? 'Memproses...' : 'Ya, Pesanan Sudah Diterima'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Sudah selesai */}
+      {order.status === 'delivered' && (
+        <div className="card p-5 mb-5 border-2 border-green-100 bg-green-50/30">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <CheckCircle size={20} className="text-green-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-green-800">Pesanan Selesai</h3>
+              <p className="text-sm text-green-600">Terima kasih! Pesanan sudah dikonfirmasi diterima.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col sm:flex-row gap-3">
         <Link href="/orders" className="btn-outline flex-1 flex items-center justify-center gap-2">
           <Package size={16} /> Lihat Semua Pesanan
