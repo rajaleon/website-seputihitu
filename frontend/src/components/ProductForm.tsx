@@ -7,6 +7,7 @@ import { Plus, Trash2, Info } from 'lucide-react';
 import api from '@/lib/api';
 import { formatRupiah } from '@/lib/utils';
 import toast from 'react-hot-toast';
+import ImageUpload from '@/components/ImageUpload';
 
 interface Category { id: number; name: string; slug: string; }
 
@@ -162,30 +163,13 @@ export default function ProductForm({ mode, productId, initialData, initialVaria
       {/* ── Tab: Info Dasar ──────────────────────────────── */}
       {activeTab === 'basic' && (
         <div className="space-y-5">
-          {/* Thumbnail preview */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              URL Gambar Utama (Thumbnail)
-            </label>
-            <div className="flex gap-3">
-              {form.thumbnail_url && (
-                <div className="w-20 h-20 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
-                  <Image src={form.thumbnail_url} alt="preview" width={80} height={80}
-                    className="object-cover w-full h-full"
-                    onError={() => updateField('thumbnail_url', '')} />
-                </div>
-              )}
-              <div className="flex-1">
-                <input type="url" placeholder="https://example.com/gambar.jpg"
-                  value={form.thumbnail_url}
-                  onChange={e => updateField('thumbnail_url', e.target.value)}
-                  className="input-field text-sm" />
-                <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
-                  <Info size={11} /> Masukkan URL gambar. Untuk upload, gunakan Supabase Storage.
-                </p>
-              </div>
-            </div>
-          </div>
+          {/* Thumbnail upload */}
+          <ImageUpload
+            value={form.thumbnail_url}
+            onChange={(url) => updateField('thumbnail_url', url)}
+            folder="products"
+            label="Gambar Utama (Thumbnail)"
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* SKU */}

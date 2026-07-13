@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Plus, Trash2, ImageIcon } from 'lucide-react';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
+import ImageUpload from '@/components/ImageUpload';
 
 interface Banner { id: number; title: string; image_url: string; link_url?: string; sort_order: number; is_active: number; }
 
@@ -81,8 +82,12 @@ export default function AdminBannersPage() {
             </div>
             <div>
               <label className="text-xs font-medium text-gray-600 block mb-1.5">URL Gambar <span className="text-red-500">*</span></label>
-              <input type="url" placeholder="https://..." value={form.image_url}
-                onChange={e => setForm(f => ({ ...f, image_url: e.target.value }))} className="input-field text-sm" />
+              <ImageUpload
+                value={form.image_url}
+                onChange={(url) => setForm(f => ({ ...f, image_url: url }))}
+                folder="banners"
+                label=""
+              />
             </div>
             <div>
               <label className="text-xs font-medium text-gray-600 block mb-1.5">Link Tujuan (opsional)</label>
