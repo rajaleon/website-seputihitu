@@ -121,7 +121,7 @@ function ThankYouContent() {
       </div>
 
       {/* ── Order Progress ─────────────────────────── */}
-      <div className="card p-5 mb-5">
+      <div className="card p-4 sm:p-5 mb-5">
         <h2 className="font-semibold text-gray-900 mb-5">Status Pesanan</h2>
         <div className="relative">
           {/* Progress bar */}
@@ -137,14 +137,14 @@ function ThankYouContent() {
               { label: 'Dikirim',          icon: <Truck size={14} /> },
               { label: 'Selesai',          icon: <CheckCircle size={14} /> },
             ].map(({ label, icon }, i) => (
-              <div key={i} className="flex flex-col items-center gap-1.5 relative">
+              <div key={i} className="flex flex-col items-center gap-1 sm:gap-1.5 relative">
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center z-10 transition-colors
                   ${i <= currentStep
                     ? 'bg-primary-500 text-white'
                     : 'bg-gray-200 text-gray-400'}`}>
                   {icon}
                 </div>
-                <span className={`text-xs text-center whitespace-pre-line leading-tight hidden sm:block
+                <span className={`text-[10px] sm:text-xs text-center whitespace-pre-line leading-tight
                   ${i <= currentStep ? 'text-primary-600 font-medium' : 'text-gray-400'}`}>
                   {label}
                 </span>

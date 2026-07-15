@@ -92,18 +92,18 @@ function CatalogContent() {
             <p className="text-sm text-gray-500 mt-1">{pagination.total.toLocaleString('id-ID')} produk ditemukan</p>
           )}
         </div>
-        <div className="flex items-center gap-3">
-          <div className="relative">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="relative flex-1 sm:flex-none">
             <select value={sort} onChange={e => { setSort(e.target.value); setPage(1); }}
-              className="input-field py-2 pr-9 text-sm appearance-none cursor-pointer w-44">
+              className="input-field py-2 pr-9 text-sm appearance-none cursor-pointer w-full sm:w-44">
               {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
             <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
           </div>
           <button onClick={() => setShowFilter(!showFilter)}
-            className="btn-outline py-2 flex items-center gap-2 text-sm">
+            className="btn-outline py-2 flex items-center gap-2 text-sm flex-shrink-0">
             <SlidersHorizontal size={16} />
-            Filter
+            <span className="hidden sm:inline">Filter</span>
             {activeFilters > 0 && (
               <span className="bg-primary-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">{activeFilters}</span>
             )}
@@ -111,10 +111,10 @@ function CatalogContent() {
         </div>
       </div>
 
-      <div className="flex gap-6">
-        {/* Sidebar Filter */}
+      <div className="flex flex-col sm:flex-row gap-6">
+        {/* Sidebar Filter - Desktop */}
         {showFilter && (
-          <aside className="w-64 flex-shrink-0 space-y-6">
+          <aside className="hidden sm:block w-64 flex-shrink-0 space-y-6">
             <div className="card p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900">Filter</h3>
@@ -156,6 +156,42 @@ function CatalogContent() {
               </div>
             </div>
           </aside>
+        )}
+
+        {/* Mobile Filter Panel */}
+        {showFilter && (
+          <div className="sm:hidden card p-4 w-full">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-gray-900 text-sm">Filter</h3>
+              {activeFilters > 0 && (
+                <button onClick={resetFilters} className="text-xs text-primary-500 hover:underline flex items-center gap-1">
+                  <X size={12} /> Reset
+                </button>
+              )}
+            </div>
+            <div className="flex gap-2 mb-3">
+              <input type="number" placeholder="Harga Min" value={minPrice}
+                onChange={e => { setMinPrice(e.target.value); setPage(1); }}
+                className="input-field py-2 text-sm flex-1" />
+              <input type="number" placeholder="Harga Max" value={maxPrice}
+                onChange={e => { setMaxPrice(e.target.value); setPage(1); }}
+                className="input-field py-2 text-sm flex-1" />
+            </div>
+            <div className="flex gap-4">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked={featured}
+                  onChange={e => { setFeatured(e.target.checked); setPage(1); }}
+                  className="accent-primary-500" />
+                <span className="text-xs text-gray-600">Unggulan</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked={flashSale}
+                  onChange={e => { setFlashSale(e.target.checked); setPage(1); }}
+                  className="accent-primary-500" />
+                <span className="text-xs text-gray-600">Flash Sale</span>
+              </label>
+            </div>
+          </div>
         )}
 
         {/* Product Grid */}

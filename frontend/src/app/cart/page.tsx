@@ -79,13 +79,13 @@ export default function CartPage() {
             </div>
 
             {items.map(item => (
-              <div key={item.id} className="card p-4 flex gap-4">
+              <div key={item.id} className="card p-3 sm:p-4 flex gap-3 sm:gap-4">
                 <input type="checkbox" checked={item.is_selected}
                   onChange={e => updateItem(item.id, undefined, e.target.checked)}
                   className="w-4 h-4 mt-1 accent-primary-500 cursor-pointer flex-shrink-0" />
 
                 <Link href={`/products/${item.slug}`}
-                  className="w-20 h-20 flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden">
+                  className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden">
                   {item.thumbnail_url
                     ? <Image src={item.thumbnail_url} alt={item.name} width={80} height={80} className="object-cover w-full h-full" />
                     : <div className="w-full h-full flex items-center justify-center text-gray-300"><ShoppingBag size={24} /></div>
@@ -102,9 +102,9 @@ export default function CartPage() {
                       {item.variant_name}
                     </span>
                   )}
-                  <div className="flex items-center justify-between mt-3">
-                    <span className="font-bold text-primary-600">{formatRupiah(item.price_snapshot)}</span>
-                    <div className="flex items-center gap-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2 sm:mt-3 gap-2">
+                    <span className="font-bold text-primary-600 text-sm">{formatRupiah(item.price_snapshot)}</span>
+                    <div className="flex items-center gap-2 sm:gap-3">
                       {/* Qty */}
                       <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
                         <button onClick={() => item.qty > 1 ? updateItem(item.id, item.qty - 1) : removeItem(item.id)}

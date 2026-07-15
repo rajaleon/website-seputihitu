@@ -41,7 +41,7 @@ export default function WhatsAppFloat() {
 
       {/* Chat Widget */}
       {open && (
-        <div className="fixed bottom-24 right-5 z-50 w-80 sm:w-96 animate-in fade-in slide-in-from-bottom-4">
+        <div className="fixed bottom-24 right-5 z-50 w-[calc(100vw-2.5rem)] sm:w-96 max-w-96 animate-in fade-in slide-in-from-bottom-4">
           <div className="card shadow-2xl overflow-hidden border border-gray-200">
             {/* Header */}
             <div className="bg-green-500 px-5 py-4 text-white">

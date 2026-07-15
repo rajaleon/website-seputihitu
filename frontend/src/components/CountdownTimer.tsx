@@ -34,14 +34,14 @@ export default function CountdownTimer({ endTime }: Props) {
   ];
 
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-1 sm:gap-1.5">
       {segments.map(({ value, label }, i) => (
-        <span key={label} className="flex items-center gap-1.5">
-          <span className="bg-gray-900 text-white text-sm font-mono font-bold px-2 py-1 rounded-lg min-w-[2.5rem] text-center">
+        <span key={label} className="flex items-center gap-0.5 sm:gap-1.5">
+          <span className="bg-gray-900 text-white text-xs sm:text-sm font-mono font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg min-w-[2rem] sm:min-w-[2.5rem] text-center">
             {value}
           </span>
-          <span className="text-xs text-gray-500">{label}</span>
-          {i < 2 && <span className="font-bold text-gray-400">:</span>}
+          <span className="text-[10px] sm:text-xs text-gray-500 hidden sm:inline">{label}</span>
+          {i < 2 && <span className="font-bold text-gray-400 text-xs sm:text-base">:</span>}
         </span>
       ))}
     </div>

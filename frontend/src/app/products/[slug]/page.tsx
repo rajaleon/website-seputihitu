@@ -181,16 +181,16 @@ export default function ProductDetailPage() {
           </div>
 
           {/* Rating & Terjual */}
-          <div className="flex items-center gap-3 text-sm">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-sm">
             <div className="flex items-center gap-1">
               {[1,2,3,4,5].map(s => (
                 <Star key={s} size={14} className={`${s <= Math.round(Number(product.rating_avg)) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 fill-gray-200'}`} />
               ))}
               <span className="text-gray-600 ml-1">{Number(product.rating_avg).toFixed(1)}</span>
             </div>
-            <span className="text-gray-300">|</span>
+            <span className="text-gray-300 hidden sm:inline">|</span>
             <span className="text-gray-500">{product.total_sold?.toLocaleString('id-ID')} terjual</span>
-            <span className="text-gray-300">|</span>
+            <span className="text-gray-300 hidden sm:inline">|</span>
             <span className={displayStock > 0 ? 'text-green-600' : 'text-red-500'}>
               {displayStock > 0 ? `Stok: ${displayStock}` : 'Habis'}
             </span>
@@ -198,11 +198,11 @@ export default function ProductDetailPage() {
 
           {/* Harga */}
           <div className="bg-primary-50 rounded-xl p-4">
-            <div className="flex items-baseline gap-3">
+            <div className="flex flex-wrap items-baseline gap-2 sm:gap-3">
               <span className="text-2xl sm:text-3xl font-black text-primary-600">{formatRupiah(finalPrice)}</span>
               {hasDiscount && (
                 <>
-                  <span className="text-gray-400 line-through text-base">{formatRupiah(product.price)}</span>
+                  <span className="text-gray-400 line-through text-sm sm:text-base">{formatRupiah(product.price)}</span>
                   <span className="badge-discount">-{discountPercent(product.price, product.discount_price!)}%</span>
                 </>
               )}
@@ -247,14 +247,14 @@ export default function ProductDetailPage() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <button onClick={handleAddToCart} disabled={addingCart || displayStock === 0}
-              className="btn-outline flex-1 flex items-center justify-center gap-2">
+              className="btn-outline flex-1 flex items-center justify-center gap-2 text-sm sm:text-base">
               <ShoppingCart size={16} />
               {addingCart ? 'Menambahkan...' : 'Keranjang'}
             </button>
             <button onClick={handleBuyNow} disabled={addingCart || displayStock === 0}
-              className="btn-primary flex-1 flex items-center justify-center gap-2">
+              className="btn-primary flex-1 flex items-center justify-center gap-2 text-sm sm:text-base">
               <Zap size={16} />
               Beli Sekarang
             </button>
@@ -277,24 +277,24 @@ export default function ProductDetailPage() {
           {/* Cek Ongkir */}
           <div className="card p-4">
             <p className="text-sm font-semibold text-gray-700 mb-3">Estimasi Ongkos Kirim</p>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input type="text" maxLength={5} placeholder="Masukkan kode pos tujuan"
                 value={postalCode} onChange={e => setPostalCode(e.target.value.replace(/\D/g, ''))}
                 className="input-field py-2 text-sm flex-1" />
               <button onClick={checkOngkir} disabled={loadingRates}
                 className="btn-primary text-sm px-4 py-2 whitespace-nowrap">
-                {loadingRates ? '...' : 'Cek'}
+                {loadingRates ? '...' : 'Cek Ongkir'}
               </button>
             </div>
             {shippingRates.length > 0 && (
               <div className="mt-3 space-y-1.5 max-h-40 overflow-y-auto">
                 {shippingRates.map((r, i) => (
-                  <div key={i} className="flex items-center justify-between text-sm py-2 border-b border-gray-50 last:border-0">
-                    <div>
+                  <div key={i} className="flex items-center justify-between text-sm py-2 border-b border-gray-50 last:border-0 gap-2">
+                    <div className="min-w-0">
                       <span className="font-medium">{r.courier_name}</span>
                       <span className="text-gray-500 text-xs ml-1">({r.service_name})</span>
                     </div>
-                    <div className="text-right">
+                    <div className="text-right flex-shrink-0">
                       <p className="font-semibold text-gray-800">{formatRupiah(r.price)}</p>
                       <p className="text-xs text-gray-400">{r.min_day}–{r.max_day} hari</p>
                     </div>

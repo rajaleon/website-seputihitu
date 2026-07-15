@@ -177,9 +177,9 @@ export default function PaymentPage() {
           {vaNumber && (
             <div className="bg-gray-50 rounded-2xl p-5 text-left mb-6">
               <p className="text-sm text-gray-500 mb-2">Nomor Virtual Account:</p>
-              <div className="flex items-center justify-between bg-white border border-gray-200 rounded-xl p-4">
-                <span className="font-mono font-bold text-lg text-gray-900">{vaNumber}</span>
-                <button onClick={handleCopyVA} className="text-primary-500 hover:text-primary-700 p-1">
+              <div className="flex items-center justify-between bg-white border border-gray-200 rounded-xl p-3 sm:p-4 gap-2">
+                <span className="font-mono font-bold text-sm sm:text-lg text-gray-900 break-all">{vaNumber}</span>
+                <button onClick={handleCopyVA} className="text-primary-500 hover:text-primary-700 p-1 flex-shrink-0">
                   {copied ? <Check size={18} /> : <Copy size={18} />}
                 </button>
               </div>
@@ -227,10 +227,10 @@ export default function PaymentPage() {
       </div>
 
       {/* Category Tabs */}
-      <div className="flex gap-1 bg-gray-100 rounded-2xl p-1.5 mb-5">
+      <div className="flex gap-1 bg-gray-100 rounded-2xl p-1.5 mb-5 overflow-x-auto">
         {CATEGORIES.map(cat => (
           <button key={cat.id} onClick={() => { setActiveCategory(cat.id); setSelectedMethod(null); }}
-            className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all
+            className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap px-2 sm:px-0
               ${activeCategory === cat.id
                 ? 'bg-white text-gray-900 shadow-sm'
                 : 'text-gray-500 hover:text-gray-700'}`}>

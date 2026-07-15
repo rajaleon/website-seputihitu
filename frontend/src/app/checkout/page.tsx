@@ -167,18 +167,18 @@ function CheckoutContent() {
             ) : (
               <div className="space-y-3">
                 {addresses.map(a => (
-                  <label key={a.id} className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-colors
+                  <label key={a.id} className={`flex items-start gap-3 p-3 sm:p-4 rounded-xl border-2 cursor-pointer transition-colors
                     ${selectedAddr === a.id ? 'border-primary-500 bg-primary-50' : 'border-gray-100 hover:border-gray-200'}`}>
                     <input type="radio" name="address" value={a.id} checked={selectedAddr === a.id}
-                      onChange={() => setSelectedAddr(a.id)} className="mt-1 accent-primary-500" />
-                    <div className="text-sm">
-                      <div className="flex items-center gap-2">
+                      onChange={() => setSelectedAddr(a.id)} className="mt-1 accent-primary-500 flex-shrink-0" />
+                    <div className="text-sm min-w-0">
+                      <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                         <span className="font-semibold text-gray-800">{a.recipient_name}</span>
-                        <span className="text-gray-400">·</span>
-                        <span className="text-gray-600">{a.phone}</span>
+                        <span className="text-gray-400 hidden sm:inline">·</span>
+                        <span className="text-gray-600 text-xs sm:text-sm">{a.phone}</span>
                         {a.is_primary && <span className="text-xs bg-primary-100 text-primary-600 px-2 py-0.5 rounded-full font-medium">Utama</span>}
                       </div>
-                      <p className="text-gray-600 mt-1">{a.full_address}</p>
+                      <p className="text-gray-600 mt-1 break-words">{a.full_address}</p>
                       <p className="text-gray-500">{a.city}, {a.province} {a.postal_code}</p>
                     </div>
                   </label>
@@ -205,15 +205,15 @@ function CheckoutContent() {
                 {couriers.map((c, i) => {
                   const isSelected = selectedCourier?.courier_code === c.courier_code && selectedCourier?.service_code === c.service_code;
                   return (
-                    <label key={i} className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-colors
+                    <label key={i} className={`flex items-center gap-3 p-3 sm:p-4 rounded-xl border-2 cursor-pointer transition-colors
                       ${isSelected ? 'border-primary-500 bg-primary-50' : 'border-gray-100 hover:border-gray-200'}`}>
                       <input type="radio" name="courier" checked={isSelected}
-                        onChange={() => setSelectedCourier(c)} className="accent-primary-500" />
-                      <div className="flex-1">
-                        <p className="text-sm font-semibold text-gray-800">{c.courier_name} — {c.service_name}</p>
+                        onChange={() => setSelectedCourier(c)} className="accent-primary-500 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-800 truncate">{c.courier_name} — {c.service_name}</p>
                         <p className="text-xs text-gray-500">{c.min_day}–{c.max_day} hari kerja</p>
                       </div>
-                      <span className="font-bold text-gray-800 text-sm">{formatRupiah(c.price)}</span>
+                      <span className="font-bold text-gray-800 text-sm flex-shrink-0">{formatRupiah(c.price)}</span>
                     </label>
                   );
                 })}

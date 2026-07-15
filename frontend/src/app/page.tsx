@@ -84,18 +84,18 @@ export default function HomePage() {
       </section>
 
       {/* ── Trust Badges ────────────────────────────────────── */}
-      <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
-          { icon: <Truck className="text-primary-500" size={24} />, title: 'Gratis Ongkir', desc: 'Min. pembelian Rp200rb' },
-          { icon: <Shield className="text-primary-500" size={24} />, title: 'Belanja Aman', desc: 'Pembayaran terenkripsi' },
-          { icon: <Zap className="text-primary-500" size={24} />, title: 'Pengiriman Cepat', desc: 'Sampai dalam 1-3 hari' },
-          { icon: <RotateCcw className="text-primary-500" size={24} />, title: 'Mudah Return', desc: 'Garansi 7 hari' },
+          { icon: <Truck className="text-primary-500" size={20} />, title: 'Gratis Ongkir', desc: 'Min. pembelian Rp200rb' },
+          { icon: <Shield className="text-primary-500" size={20} />, title: 'Belanja Aman', desc: 'Pembayaran terenkripsi' },
+          { icon: <Zap className="text-primary-500" size={20} />, title: 'Pengiriman Cepat', desc: 'Sampai dalam 1-3 hari' },
+          { icon: <RotateCcw className="text-primary-500" size={20} />, title: 'Mudah Return', desc: 'Garansi 7 hari' },
         ].map(({ icon, title, desc }) => (
-          <div key={title} className="card p-4 flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0">{icon}</div>
-            <div>
-              <p className="font-semibold text-sm text-gray-800">{title}</p>
-              <p className="text-xs text-gray-500">{desc}</p>
+          <div key={title} className="card p-3 sm:p-4 flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary-50 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">{icon}</div>
+            <div className="min-w-0">
+              <p className="font-semibold text-xs sm:text-sm text-gray-800 truncate">{title}</p>
+              <p className="text-[10px] sm:text-xs text-gray-500 truncate">{desc}</p>
             </div>
           </div>
         ))}
@@ -104,11 +104,11 @@ export default function HomePage() {
       {/* ── Flash Sale ──────────────────────────────────────── */}
       {(loading || flashSale.length > 0) && (
         <section>
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               <div className="flex items-center gap-2">
                 <Zap size={22} className="text-yellow-500 fill-yellow-400" />
-                <h2 className="text-xl font-bold text-gray-900">Flash Sale</h2>
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900">Flash Sale</h2>
               </div>
               {flashSale[0]?.flash_sale_end && (
                 <CountdownTimer endTime={flashSale[0].flash_sale_end} />
@@ -155,9 +155,9 @@ export default function HomePage() {
       </section>
 
       {/* ── Testimoni ───────────────────────────────────────── */}
-      <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100">
-        <h2 className="text-xl font-bold text-gray-900 text-center mb-8">Apa Kata Pelanggan Kami</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <section className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-100">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 text-center mb-6 sm:mb-8">Apa Kata Pelanggan Kami</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           {[
             { name: 'R***za', rating: 5, comment: 'Sudah pembelian k3 dan cuma vitamin seputih itu yg ada perubahan dbadan ku klo kena cahaya matahari bener2 agak putih dan bersih trus kulit brasa halus pakai handbody apa aja jd ga dempul karna lembut akan beli trus sampe kulitku kaya ownernya hehe' },
             { name: 'M***ch', rating: 5, comment: 'pemakaian pertama kelihatan hasilnya walau perubahan sedikit, tapi saya coba untuk terus konsumsi lagi secara rutin supaya hasil lebih memuaskan' },
