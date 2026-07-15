@@ -32,13 +32,7 @@ export default function AdminSidebar() {
       {/* Logo */}
       <div className="px-5 py-5 border-b border-gray-800">
         <Link href="/admin" className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-black text-sm">S</span>
-          </div>
-          <div>
-            <p className="text-white font-bold text-sm leading-tight">Seputihitu</p>
-            <p className="text-gray-500 text-xs">Admin Panel</p>
-          </div>
+          <img src="/images/logo.png" alt="Seputih.itu" className="h-7 w-auto brightness-0 invert" />
         </Link>
       </div>
 

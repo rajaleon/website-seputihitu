@@ -36,11 +36,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center gap-4 h-16">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-black text-sm">S</span>
-            </div>
-            <span className="font-bold text-lg text-gray-900 hidden sm:block">Seputihitu</span>
+          <Link href="/" className="flex-shrink-0">
+            <img src="/images/logo.png" alt="Seputih.itu" className="h-8 sm:h-10 w-auto" />
           </Link>
 
           {/* Search */}

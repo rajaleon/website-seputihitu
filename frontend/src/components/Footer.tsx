@@ -8,11 +8,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-black text-sm">S</span>
-              </div>
-              <span className="text-white font-bold text-lg">Seputihitu</span>
+            <div className="mb-4">
+              <img src="/images/logo.png" alt="Seputih.itu" className="h-9 w-auto brightness-0 invert" />
             </div>
             <p className="text-sm leading-relaxed text-gray-400">
               Seputih.itu Menghadirkan skincare berkualitas untuk menemani perjalanan kulitmu sejak 2020.
