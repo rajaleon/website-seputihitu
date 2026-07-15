@@ -9,7 +9,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <img src="/images/logo.png" alt="Seputih.itu" className="h-9 w-auto brightness-0 invert" />
+              <span className="text-white font-bold text-xl">Seputih.itu</span>
             </div>
             <p className="text-sm leading-relaxed text-gray-400">
               Seputih.itu Menghadirkan skincare berkualitas untuk menemani perjalanan kulitmu sejak 2020.
