@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { query, transaction } from '@/lib/server/db';
 import { requireAuth } from '@/lib/server/auth';
+import { notifyNewOrder } from '@/lib/server/whatsapp';
 
 function generateOrderNumber() {
   const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
@@ -117,6 +118,19 @@ export async function POST(req: NextRequest) {
 
     await tx.execute('DELETE FROM cart_items WHERE cart_id = ? AND is_selected = true', [carts[0].id]);
   });
+
+  // Kirim notifikasi WhatsApp ke admin (non-blocking)
+  const userInfo = await query('SELECT name, phone FROM users WHERE id = ?', [user.id]);
+  const addrInfo = await query('SELECT city FROM addresses WHERE id = ?', [address_id]);
+  notifyNewOrder({
+    order_number: orderNumber,
+    customer_name: userInfo[0]?.name || user.name,
+    customer_phone: userInfo[0]?.phone || '-',
+    total,
+    items_count: items.length,
+    courier: courier_service || '-',
+    address_city: addrInfo[0]?.city || '-',
+  }).catch(() => {});
 
   return Response.json({ success: true, message: 'Order berhasil dibuat', order_id: orderId, order_number: orderNumber }, { status: 201 });
 }

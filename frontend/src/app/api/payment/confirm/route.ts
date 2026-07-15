@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { query, execute } from '@/lib/server/db';
 import { requireAuth } from '@/lib/server/auth';
+import { notifyPaymentSuccess } from '@/lib/server/whatsapp';
 
 /**
  * POST /api/payment/confirm
@@ -16,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     // Cek order milik user
     const orders = await query(
-      'SELECT id, status, order_number FROM orders WHERE id = ? AND user_id = ?',
+      'SELECT id, status, order_number, total FROM orders WHERE id = ? AND user_id = ?',
       [order_id, user.id]
     );
     if (orders.length === 0) return Response.json({ success: false, message: 'Order tidak ditemukan' }, { status: 404 });
@@ -114,6 +115,9 @@ export async function POST(req: NextRequest) {
       console.error('[Shipment creation error]', e.message);
       // Non-blocking — order tetap paid
     }
+
+    // Notif WA ke admin
+    notifyPaymentSuccess(order.order_number, Number(order.total || 0), payment_method || 'unknown').catch(() => {});
 
     return Response.json({
       success: true,
