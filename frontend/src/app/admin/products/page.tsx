@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Plus, Search, Pencil, Power, PowerOff, Package, ChevronDown } from 'lucide-react';
+import { Plus, Search, Pencil, Power, PowerOff, Package, ChevronDown, Trash2 } from 'lucide-react';
 import api from '@/lib/api';
 import { formatRupiah } from '@/lib/utils';
 import toast from 'react-hot-toast';
@@ -32,6 +32,7 @@ export default function AdminProductsPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [toggling,   setToggling]   = useState<string | null>(null);
+  const [deleting,   setDeleting]   = useState<string | null>(null);
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -79,6 +80,22 @@ export default function AdminProductsPage() {
       toast.error('Gagal mengubah status produk');
     } finally {
       setToggling(null);
+    }
+  }
+
+  async function deleteProduct(product: Product) {
+    const confirmed = window.confirm(`Hapus produk "${product.name}"?\n\nProduk yang dihapus tidak bisa dikembalikan.`);
+    if (!confirmed) return;
+
+    setDeleting(product.id);
+    try {
+      await api.delete(`/products/delete/${product.id}`);
+      toast.success('Produk berhasil dihapus');
+      fetchProducts();
+    } catch {
+      toast.error('Gagal menghapus produk');
+    } finally {
+      setDeleting(null);
     }
   }
 
@@ -226,6 +243,15 @@ export default function AdminProductsPage() {
                           {toggling === product.id
                             ? <span className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
                             : product.is_active ? <PowerOff size={14} /> : <Power size={14} />
+                          }
+                        </button>
+                        <button onClick={() => deleteProduct(product)}
+                          disabled={deleting === product.id}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:border-red-400 hover:bg-red-50 hover:text-red-600 text-gray-500 transition-colors"
+                          title="Hapus Produk">
+                          {deleting === product.id
+                            ? <span className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                            : <Trash2 size={14} />
                           }
                         </button>
                       </div>
