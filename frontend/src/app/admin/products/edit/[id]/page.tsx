@@ -43,6 +43,7 @@ export default function EditProductPage() {
           price:          String(product.price || ''),
           discount_price: product.discount_price ? String(product.discount_price) : '',
           stock:          String(product.stock ?? '0'),
+          total_sold:     String(product.total_sold ?? '0'),
           category_id:    product.category_id ? String(product.category_id) : '',
           thumbnail_url:  product.thumbnail_url || '',
           weight_gram:    String(product.weight_gram ?? '0'),

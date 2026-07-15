@@ -16,7 +16,6 @@ import ProductCard, { Product } from '@/components/ProductCard';
 import toast from 'react-hot-toast';
 
 interface Variant { id: string; variant_name: string; price?: number; stock: number; }
-interface Review  { id: string; user_name: string; rating: number; comment: string; created_at: string; }
 interface ProductDetail extends Product {
   description?: string;
   specification?: string;
@@ -34,12 +33,11 @@ export default function ProductDetailPage() {
   const addItem    = useCartStore(s => s.addItem);
 
   const [product,      setProduct]      = useState<ProductDetail | null>(null);
-  const [reviews,      setReviews]      = useState<Review[]>([]);
   const [loading,      setLoading]      = useState(true);
   const [imgIdx,       setImgIdx]       = useState(0);
   const [selectedVar,  setSelectedVar]  = useState<string | null>(null);
   const [qty,          setQty]          = useState(1);
-  const [activeTab,    setActiveTab]    = useState<'desc'|'spec'|'review'>('desc');
+  const [activeTab,    setActiveTab]    = useState<'desc'|'spec'>('desc');
   const [postalCode,   setPostalCode]   = useState('');
   const [shippingRates, setShippingRates] = useState<any[]>([]);
   const [loadingRates,  setLoadingRates]  = useState(false);
@@ -50,8 +48,6 @@ export default function ProductDetailPage() {
       try {
         const { data } = await api.get(`/products/${slug}`);
         setProduct(data.data);
-        const rev = await api.get(`/products/${data.data.id}/reviews`);
-        setReviews(rev.data.data);
       } catch {
         router.push('/catalog');
       } finally {
@@ -310,11 +306,11 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
-      {/* ── Tab: Deskripsi / Spesifikasi / Ulasan ─── */}
+      {/* ── Tab: Deskripsi / Spesifikasi ─── */}
       <div className="card mb-10">
         <div className="flex border-b border-gray-100">
-          {(['desc','spec','review'] as const).map((tab, i) => {
-            const labels = ['Deskripsi', 'Spesifikasi', `Ulasan (${reviews.length})`];
+          {(['desc','spec'] as const).map((tab, i) => {
+            const labels = ['Deskripsi', 'Spesifikasi'];
             return (
               <button key={tab} onClick={() => setActiveTab(tab)}
                 className={`px-6 py-4 text-sm font-semibold transition-colors border-b-2
@@ -339,30 +335,6 @@ export default function ProductDetailPage() {
                 ? <div dangerouslySetInnerHTML={{ __html: product.specification.replace(/\n/g, '<br/>') }} />
                 : <p className="text-gray-400">Spesifikasi belum tersedia.</p>
               }
-            </div>
-          )}
-          {activeTab === 'review' && (
-            <div className="space-y-4">
-              {reviews.length === 0 ? (
-                <p className="text-gray-400 text-sm">Belum ada ulasan.</p>
-              ) : reviews.map(r => (
-                <div key={r.id} className="pb-4 border-b border-gray-50 last:border-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-bold text-sm">
-                      {r.user_name[0].toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-800">{r.user_name}</p>
-                      <div className="flex">
-                        {[1,2,3,4,5].map(s => (
-                          <Star key={s} size={11} className={s <= r.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 fill-gray-200'} />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  {r.comment && <p className="text-sm text-gray-600 ml-10">{r.comment}</p>}
-                </div>
-              ))}
             </div>
           )}
         </div>

@@ -22,6 +22,7 @@ export interface ProductFormData {
   price: string;
   discount_price: string;
   stock: string;
+  total_sold: string;
   category_id: string;
   thumbnail_url: string;
   weight_gram: string;
@@ -36,7 +37,7 @@ export interface ProductFormData {
 
 const EMPTY_FORM: ProductFormData = {
   sku: '', name: '', slug: '', description: '', specification: '',
-  price: '', discount_price: '', stock: '0',
+  price: '', discount_price: '', stock: '0', total_sold: '0',
   category_id: '', thumbnail_url: '',
   weight_gram: '0', length_cm: '', width_cm: '', height_cm: '',
   is_featured: false, is_flash_sale: false, flash_sale_end: '', is_active: true,
@@ -104,6 +105,7 @@ export default function ProductForm({ mode, productId, initialData, initialVaria
         price:          Number(form.price),
         discount_price: form.discount_price ? Number(form.discount_price) : null,
         stock:          Number(form.stock),
+        total_sold:     Number(form.total_sold),
         category_id:    form.category_id || null,
         weight_gram:    Number(form.weight_gram) || 0,
         length_cm:      form.length_cm  ? Number(form.length_cm)  : null,
@@ -256,6 +258,13 @@ export default function ProductForm({ mode, productId, initialData, initialVaria
                 <input type="number" min="0" required
                   value={form.stock} onChange={e => updateField('stock', e.target.value)}
                   className="input-field text-sm" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1.5">Jumlah Terjual</label>
+                <input type="number" min="0"
+                  value={form.total_sold} onChange={e => updateField('total_sold', e.target.value)}
+                  className="input-field text-sm" />
+                <p className="text-xs text-gray-400 mt-1">Isi manual untuk keperluan display</p>
               </div>
             </div>
             {discPercent > 0 && (

@@ -34,7 +34,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { slug: stri
   const id = params.slug; // In edit context, this is product ID
   const body = await req.json();
   const fields = ['name','slug','description','specification','price','discount_price',
-    'stock','category_id','thumbnail_url','weight_gram','length_cm','width_cm','height_cm',
+    'stock','total_sold','category_id','thumbnail_url','weight_gram','length_cm','width_cm','height_cm',
     'is_featured','is_flash_sale','flash_sale_end','is_active'];
 
   const updates: string[] = [];
