@@ -63,7 +63,6 @@ Segera proses pengiriman!`;
  * Core function: kirim pesan WhatsApp via Fonnte API
  */
 async function sendWhatsApp(target: string, message: string) {
-  // Jika FONNTE_TOKEN belum diset, skip (log saja)
   if (!FONNTE_TOKEN) {
     console.log('[WA Notif] Token belum diset. Pesan:', message.substring(0, 100));
     return;
@@ -74,13 +73,12 @@ async function sendWhatsApp(target: string, message: string) {
       method: 'POST',
       headers: {
         'Authorization': FONNTE_TOKEN,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({
+      body: new URLSearchParams({
         target,
         message,
-        countryCode: '62',
-      }),
+      }).toString(),
     });
 
     const data = await res.json();
@@ -91,6 +89,5 @@ async function sendWhatsApp(target: string, message: string) {
     }
   } catch (err: any) {
     console.error('[WA Notif] Error:', err.message);
-    // Non-blocking — jangan sampai gagal notif bikin order error
   }
 }
