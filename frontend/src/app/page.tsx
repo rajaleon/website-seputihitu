@@ -130,7 +130,7 @@ export default function HomePage() {
       )}
 
       {/* ── Produk Unggulan ─────────────────────────────────── */}
-      {/* <section>
+      <section>
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-xl font-bold text-gray-900">Produk Unggulan</h2>
           <Link href="/catalog?featured=true" className="text-primary-500 text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all">
@@ -152,7 +152,7 @@ export default function HomePage() {
               </div>
             )
         }
-      </section> */}
+      </section>
 
       {/* ── Testimoni ───────────────────────────────────────── */}
       <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100">
