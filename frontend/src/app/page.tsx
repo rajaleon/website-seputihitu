@@ -75,7 +75,7 @@ export default function HomePage() {
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-white px-6 text-center">
             <h1 className="text-3xl sm:text-4xl font-black mb-3">Selamat Datang di Seputihitu!</h1>
-            <p className="text-lg opacity-90 mb-5">Temukan ribuan produk terbaik dengan harga terjangkau.</p>
+            <p className="text-lg opacity-90 mb-5">Skincare terpercaya sejak 2020 dengan produk pilihan untuk membantu merawat dan mencerahkan kulit.</p>
             <Link href="/catalog" className="bg-white text-primary-600 font-bold px-6 py-3 rounded-xl hover:bg-orange-50 transition-colors">
               Mulai Belanja
             </Link>
@@ -86,7 +86,7 @@ export default function HomePage() {
       {/* ── Trust Badges ────────────────────────────────────── */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { icon: <Truck className="text-primary-500" size={24} />, title: 'Gratis Ongkir', desc: 'Min. pembelian Rp50rb' },
+          { icon: <Truck className="text-primary-500" size={24} />, title: 'Gratis Ongkir', desc: 'Min. pembelian Rp200rb' },
           { icon: <Shield className="text-primary-500" size={24} />, title: 'Belanja Aman', desc: 'Pembayaran terenkripsi' },
           { icon: <Zap className="text-primary-500" size={24} />, title: 'Pengiriman Cepat', desc: 'Sampai dalam 1-3 hari' },
           { icon: <RotateCcw className="text-primary-500" size={24} />, title: 'Mudah Return', desc: 'Garansi 7 hari' },
@@ -130,7 +130,7 @@ export default function HomePage() {
       )}
 
       {/* ── Produk Unggulan ─────────────────────────────────── */}
-      <section>
+      {/* <section>
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-xl font-bold text-gray-900">Produk Unggulan</h2>
           <Link href="/catalog?featured=true" className="text-primary-500 text-sm font-medium flex items-center gap-1 hover:gap-2 transition-all">
@@ -152,16 +152,16 @@ export default function HomePage() {
               </div>
             )
         }
-      </section>
+      </section> */}
 
       {/* ── Testimoni ───────────────────────────────────────── */}
       <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100">
         <h2 className="text-xl font-bold text-gray-900 text-center mb-8">Apa Kata Pelanggan Kami</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[
-            { name: 'Andi S.', rating: 5, comment: 'Pengiriman super cepat! Barang sampai dalam 2 hari dan kondisi sangat baik.' },
-            { name: 'Budi W.', rating: 5, comment: 'Harga kompetitif, produk original, customer service responsif. Recommended!' },
-            { name: 'Citra A.', rating: 5, comment: 'Sudah langganan di sini selama 2 tahun. Kualitas produk konsisten dan terpercaya.' },
+            { name: 'R***za', rating: 5, comment: 'Sudah pembelian k3 dan cuma vitamin seputih itu yg ada perubahan dbadan ku klo kena cahaya matahari bener2 agak putih dan bersih trus kulit brasa halus pakai handbody apa aja jd ga dempul karna lembut akan beli trus sampe kulitku kaya ownernya hehe' },
+            { name: 'M***ch', rating: 5, comment: 'pemakaian pertama kelihatan hasilnya walau perubahan sedikit, tapi saya coba untuk terus konsumsi lagi secara rutin supaya hasil lebih memuaskan' },
+            { name: 'S***at.', rating: 5, comment: 'Paketanya vitamin yang sdh nyampe ya,, sdh jd langganan brp bulan ini,,,respon penjualnya baik mudah mudahan dpt lgi isi yg 30 dpt free 30 jadi 60 kapsul lbh murah ,,, yang sering aja kakak owner yg cantik' },
           ].map(({ name, rating, comment }) => (
             <div key={name} className="bg-gray-50 rounded-xl p-5">
               <div className="flex mb-3">

@@ -15,7 +15,7 @@ export default function Footer() {
               <span className="text-white font-bold text-lg">Seputihitu</span>
             </div>
             <p className="text-sm leading-relaxed text-gray-400">
-              Toko online terpercaya dengan ribuan produk pilihan. Belanja mudah, aman, dan cepat.
+              Seputih.itu Menghadirkan skincare berkualitas untuk menemani perjalanan kulitmu sejak 2020.
             </p>
             <div className="flex gap-3 mt-4">
               <a href="#" className="w-9 h-9 bg-gray-800 hover:bg-primary-500 rounded-lg flex items-center justify-center transition-colors">
@@ -62,11 +62,11 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <MapPin size={16} className="mt-0.5 flex-shrink-0 text-primary-400" />
-                <span>Jl. Contoh No. 1, Jakarta, Indonesia</span>
+                <span>Jl. Ruko Estrella no 11, Kota Tangerang</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={16} className="flex-shrink-0 text-primary-400" />
-                <a href="tel:+6281234567890" className="hover:text-primary-400 transition-colors">+62 812-3456-7890</a>
+                <a href="tel:+6281387840944" className="hover:text-primary-400 transition-colors">+62 813-8784-0944</a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={16} className="flex-shrink-0 text-primary-400" />
@@ -79,8 +79,6 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-gray-500">
           <span>© {new Date().getFullYear()} Seputihitu Store. All rights reserved.</span>
           <div className="flex items-center gap-2">
-            <img src="/images/payment/visa.svg" alt="Visa" className="h-5 opacity-60" />
-            <img src="/images/payment/mastercard.svg" alt="Mastercard" className="h-5 opacity-60" />
             <span className="text-xs">QRIS • VA • E-Wallet</span>
           </div>
         </div>

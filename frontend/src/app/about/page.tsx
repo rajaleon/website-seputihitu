@@ -65,11 +65,11 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div>
             <p className="text-gray-500 mb-1">Alamat</p>
-            <p className="font-medium text-gray-800">RT.001/RW.002, Pakojan, Pinang, Kota Tangerang, Banten 15142</p>
+            <p className="font-medium text-gray-800">Ruko Estrella Kota Tangerang</p>
           </div>
           <div>
             <p className="text-gray-500 mb-1">Telepon / WhatsApp</p>
-            <p className="font-medium text-gray-800">0818-0614-5844</p>
+            <p className="font-medium text-gray-800">0813-8784-0944</p>
           </div>
           <div>
             <p className="text-gray-500 mb-1">Email</p>
